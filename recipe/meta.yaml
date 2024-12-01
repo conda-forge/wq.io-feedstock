@@ -5,26 +5,28 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/w/wq.io/wq.io-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/w/wq.io/wq.io-{{ version }}.tar.gz
   sha256: 23f1ed5712983160b9cef9598f5a789553749ea49665a8bce85b5b51b4c248b5
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   host:
-    - python >=3
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3
+    - python >={{ python_min }}
     - requests
     - wq.core
     - xlrd
     - fiona
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - wq
     - wq.io
